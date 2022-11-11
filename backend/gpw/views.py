@@ -1,16 +1,28 @@
 from django.shortcuts import render
+from .models import Index
 
 from bs4 import BeautifulSoup
 from requests import get
 
 
 def home(request):
+    indexes = Index.objects.all()
+
+    for index in indexes:
+        print(index.name)
+        if index.name == index.name:
+            print("tak")
+
+    context = {'indexes': indexes}
+    return render(request, "gpw/index.html", context)
+
+
+def download_index(request):
 
     url = 'https://www.bankier.pl/inwestowanie/profile/quote.html?symbol=MWIG40'
     page = get(url)
     bs = BeautifulSoup(page.content, 'html.parser')
 
-    index_gpw = {}
     number = 0
     for offer in bs.find_all('tr'):
         name = offer.find('td', class_='colWalor')
@@ -22,11 +34,11 @@ def home(request):
         name_index = name.get_text().strip()
         price_index = price.get_text().strip()
 
-        index_gpw[name_index] = price_index
+        obj = Index.objects.filter(name=name_index).update(number=price_index)
+
         number += 1
         if number == 5:
             break
-    print(index_gpw)
 
-    context = {'index_gpw': index_gpw}
-    return render(request, "gpw/index.html", context)
+    context = {}
+    return render(request, "gpw/download_index.html", context)
