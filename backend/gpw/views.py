@@ -9,6 +9,8 @@ from .tasks import download
 def home(request):
     indexes = Index.objects.all()
 
+    download.delay()
+
     context = {'indexes': indexes}
     return render(request, "gpw/index.html", context)
 
