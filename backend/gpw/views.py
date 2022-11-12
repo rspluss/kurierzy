@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Index
 
 from bs4 import BeautifulSoup
@@ -7,11 +7,6 @@ from requests import get
 
 def home(request):
     indexes = Index.objects.all()
-
-    for index in indexes:
-        print(index.name)
-        if index.name == index.name:
-            print("tak")
 
     context = {'indexes': indexes}
     return render(request, "gpw/index.html", context)
@@ -33,6 +28,7 @@ def download_index(request):
             continue
         name_index = name.get_text().strip()
         price_index = price.get_text().strip()
+        print(name_index)
 
         obj = Index.objects.filter(name=name_index).update(number=price_index)
 
@@ -40,5 +36,4 @@ def download_index(request):
         if number == 5:
             break
 
-    context = {}
-    return render(request, "gpw/download_index.html", context)
+    return redirect('gpw:home')
