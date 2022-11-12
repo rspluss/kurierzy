@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gpw.apps.GpwConfig',
+    'django_celery_results',
+    'celery_progress',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +137,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CELERY_BROKER_URL = 'rediss://:p99bbbf6df525edfff3ac0df1dc7ae9968111e6a7a7146db9f221f92080e532dd@ec2-54-75-118-73.eu-west-1.compute.amazonaws.com:27240'
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND = 'django-db'
