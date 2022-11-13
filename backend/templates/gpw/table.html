@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+            <table id="table" class="table">
+                <thead class="table-primary">
+                <tr>
+                    <th scope="col">Index</th>
+                    <th scope="col">Cena</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for index in indexes %}
+                <tr>
+                    <td>{{ index.name }}</td>
+                    <td>{{ index.number }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
