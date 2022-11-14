@@ -42,9 +42,9 @@ def download_index(request):
 
 
 def table(request):
+    indexes = Index.objects.all()
     download.delay()
 
-    indexes = Index.objects.all()
     return render(request, 'gpw/table.html', {'indexes': indexes})
 
 
